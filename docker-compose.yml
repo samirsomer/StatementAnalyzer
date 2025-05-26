@@ -1,0 +1,8 @@
+services:
+  bank-parser:
+    build: .
+    container_name: bank-parser
+    ports:
+      - 8500:8500
+    volumes:
+      - .:/app

@@ -70,7 +70,11 @@ docker build -t pdf-bank-parser .
 
 ### 2. Run the container
 ```bash
-docker run -p 8500:8500 pdf-bank-parser
+docker run -p 8500:8500 -v "$(pwd)/app.py:/app/app.py" pdf-bank-parser
+```
+or using docker-compose
+```bash
+docker-compose up
 ```
 
 ### 📁 File Structure
