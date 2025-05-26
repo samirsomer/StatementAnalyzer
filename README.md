@@ -1,6 +1,3 @@
-from pathlib import Path
-
-readme_content = """
 # 📄 PDF Bank Statement Parser
 
 A simple yet powerful **Streamlit web app** to parse and analyze bank and credit card PDF statements. It extracts tabular transaction data, provides summaries, allows manual editing, and enables CSV export.
