@@ -6,6 +6,8 @@ import streamlit as st
 import camelot
 import tempfile
 from datetime import datetime
+
+
 # -------------------------------------------------------------------
 # Streamlit & logging setup
 # -------------------------------------------------------------------
@@ -22,7 +24,7 @@ account_type = st.sidebar.selectbox("Select account type:", ["Current Account", 
 # Upload widget
 # -------------------------------------------------------------------
 uploaded_files = st.file_uploader(
-    f"Upload one or more {account_type} PDF statements",
+    f"Upload one or more **{account_type}** PDF statements",
     type="pdf",
     accept_multiple_files=True,
 )
@@ -115,12 +117,8 @@ def parse_pdf(file, account_type="Current Account"):
             "Total Credit": pd.to_numeric(
                 df.get("credit", pd.Series(dtype=float)).astype(str).str.replace(",", "", regex=False), errors="coerce"
             ).sum(skipna=True),
-            # "Total Amount": pd.to_numeric(
-            #     df.get("amount", pd.Series(dtype=float)).astype(str).str.replace(",", "", regex=False), errors="coerce"
-            # ).sum(skipna=True),
         }
         return df.drop(columns=["dttime"], errors="ignore"), summary
-
 
 
 # -------------------------------------------------------------------
@@ -146,7 +144,7 @@ if uploaded_files:
                     num_rows="dynamic",
                     key=f"editor_{file.name}"
                 )
-                submitted = st.form_submit_button("Apply Changes")
+                submitted = st.form_submit_button("Save Changes")
 
             if submitted:
                 st.success("✅ Changes Applied Successfully")
@@ -154,7 +152,7 @@ if uploaded_files:
 
             csv_bytes = df.to_csv(index=False).encode("utf-8")
             st.download_button(
-                label="⬇️ Download CSV",
+                label="⬇️ Download to CSV",
                 data=csv_bytes,
                 file_name=f"{file.name.replace('.pdf', '')}_edited.csv",
                 mime="text/csv",
